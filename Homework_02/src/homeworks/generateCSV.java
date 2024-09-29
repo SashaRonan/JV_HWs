@@ -1,29 +1,44 @@
+//Задача 2.
+//        Создание CSV-строки из массива объектов
+//        Дан массив объектов, где каждый объект представляет собой строку данных, и
+//        массив заголовков. Создайте строку CSV, где строки данных разделяются новой
+//        строкой, а значения в строках разделяются запятыми.
+//        Пример:
+//        String[] headers = {"Name", "Age", "City"};
+//        String[][] data = {
+//        {"John", "30", "New York"},
+//        {"Alice", "25", "Los Angeles"},
+//        {"Bob", "35", "Chicago"}
+//        };
+//        Результат:
+//        Name,Age,City
+//        John,30,New York
+//        Alice,25,Los Angeles
+//        Bob,35,Chicago
+
 package homeworks;
 
-import java.util.Scanner;
-
 public class generateCSV {
-
-    public static String parseCSV(String[] headers, String[][] data) {
-        StringBuilder resultCSV = new StringBuilder();
-        for (int i = 0; i < headers.length; i++) {
-            resultCSV.append(headers[i]);
-        }
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data[i].length; j++) {
-                resultCSV.append(data[i][j]);
-            }
-        }
-        return resultCSV.toString();
-    }
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the header: ");
-        String header = sc.nextLine();
-        System.out.println("Enter the data: ");
-        String data = sc.nextLine();
-        String[] headers = header.split(",");
+        String[] headers = {"Name", "Age", "City"};
+        String[][] data = {
+                {"John", "30", "New York"},
+                {"Alice", "25", "Los Angeles"},
+                {"Bob", "35", "Chicago"}
+        };
+        String csv = generateCSV(headers, data);
+        System.out.println(csv);
     }
 
+    public static String generateCSV(String[] headers, String[][] data) {
+
+        StringBuilder csvBuilder = new StringBuilder();
+        csvBuilder.append(String.join(",", headers)).append("\n");
+        for (String[] row : data) {
+            csvBuilder.append(String.join(",", row)).append("\n");
+        }
+        String csv = csvBuilder.toString().trim();
+        return csv;
+    }
 }
+
